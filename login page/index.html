@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Login Form</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h2 class="text-center mb-6">Login</h2>
+          <form name="f1" method="post" action="login.php" id="loginForm">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email :</label>
+              <input
+                type="text"
+                name="username"
+                value=""
+                id="username"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password :</label>
+              <input
+                type="text"
+                name="password"
+                value=""
+                id="password"
+                class="form-control"
+              />
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="invalidEmailModal"
+      tabindex="-1"
+      aria-labelledby="invalidEmailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="invalidEmailModalLabel">
+              Invalid Email.
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Please enter a valid email.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="successModalLabel">Success!</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Login successful.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm");
+        loginForm.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+          const usernameInput = document.getElementById("username");
+          const passwordInput = document.getElementById("password");
+          const usernameValue = usernameInput.value.trim();
+          const passwordValue = passwordInput.value.trim();
+
+          if (usernameValue && passwordValue) {
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usernameValue)) {
+              const successModal = new bootstrap.Modal(
+                document.getElementById("successModal")
+              );
+              successModal.show();
+            } else {
+              const invalidEmailModal = new bootstrap.Modal(
+                document.getElementById("invalidEmailModal")
+              );
+              invalidEmailModal.show();
+            }
+          } else {
+            const invalidEmailModal = new bootstrap.Modal(
+              document.getElementById("invalidEmailModal")
+            );
+            invalidEmailModal.show();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
